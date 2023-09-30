@@ -1,14 +1,26 @@
 import logo from './logo.svg';
 import './App.css';
+import { useEffect, useState } from 'react';
+const apiBaseURL = "http://localhost:3001/api/v1/"
 
 function App() {
+  const [tasks, setTasks] = useState([]);
+  useEffect(() => {
+    fetch(apiBaseURL + "/task").then((data) => {
+      return data.json()
+    }).then((data) => {
+      console.log("Data", data);
+      setTasks(data.data)
+    }).catch((error) => {
+      console.log("error", error);
+    })
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Welcome to Home Page..</p>
-        <h2>This is for Testing...</h2>
-      </header>
+    <div>
+      {tasks && tasks.map((task, index) => {
+        return (<h3 key={index}>{task.title}</h3>)
+      })}
     </div>
   );
 }
