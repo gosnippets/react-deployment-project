@@ -18,6 +18,7 @@ function App() {
 
   return (
     <div>
+    <h2>List of Task: </h2>
       {tasks && tasks.map((task, index) => {
         return (<h3 key={index}>{task.title}</h3>)
       })}
